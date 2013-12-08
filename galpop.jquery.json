@@ -1,0 +1,34 @@
+{
+	
+"name": "galpop",
+"title": "Galpop Image Gallery",
+"description": "Galpop is an image gallery pop-up. It can be controlled with the left and right arrow keys and automatically resizes with your browser.",
+"keywords": [
+	"gallery",
+	"pop-up",
+	"graphics",
+	"images",
+	"photos"
+],
+"version": "1.0.0",
+"author": {
+	"name": "Richard Hung",
+	"email": "richardhung111@gmail.com",
+	"url": "http://www.magicmediamuse.com/"
+},
+"licenses": [
+	{
+		"type": "Creative Commons Attribution-NonCommercial 3.0 Unported License",
+		"url": "http://creativecommons.org/licenses/by-nc/3.0/deed.en_US"
+	}
+],
+"demo": "http://galpop.magicmediamuse.com/examples.php",
+"bugs": "https://github.com/Richard1320/Galpop/issues",
+"homepage": "http://galpop.magicmediamuse.com",
+"docs": "http://galpop.magicmediamuse.com",
+"download": "http://galpop.magicmediamuse.com/download.php",
+"dependencies": {
+"jquery": ">=2.0"
+}
+
+}

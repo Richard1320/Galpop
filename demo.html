@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" rel="stylesheet" href="css/jquery.galpop.css" media="screen" />
+
+<title>Demo | Galpop Image Gallery Popup</title>
+
+</head>
+
+<body>
+
+<div id="wrapper">
+
+<header>
+
+
+</header>
+
+
+<div id="container">
+
+<div id="content">
+
+
+<h1 class="page-title">Demo</h1>
+
+<p>More info and examples at <a target="_blank" href="http://galpop.magicmediamuse.com/">http://galpop.magicmediamuse.com/</a></p>
+
+
+<h2 id="single-head">Single Image</h2>
+<p>Just bind galpop to the anchor link.</p>
+<div class="gallery-wrapper">
+<a class="galpop-single" href="images/gallery/large/apocalypse.jpg"><img src="images/gallery/thumbs/apocalypse.jpg" alt="An apocalyptic Earth." /></a></div><!-- end single galpop wrapper -->
+
+<h2 id="multiple-head">Multiple Images</h2>
+<p>Bind a series of images with the same "data-galpop-group" attribute value.</p>
+<div class="gallery-wrapper">
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/apocalypse.jpg"><img src="images/gallery/thumbs/apocalypse.jpg" alt="An apocalyptic Earth." /></a>
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/vintage.jpg"><img src="images/gallery/thumbs/vintage.jpg" alt="An old, vintage poster." /></a>
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/magicLake.jpg"><img src="images/gallery/thumbs/magicLake.jpg" alt="A scene of a magical forest." /></a>
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/underwater.jpg"><img src="images/gallery/thumbs/underwater.jpg" alt="An underwater scene with lots of tension." /></a>
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/goodBoy.jpg"><img src="images/gallery/thumbs/goodBoy.jpg" alt="A dog and his pet." /></a>
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/darkroad.jpg"><img src="images/gallery/thumbs/darkroad.jpg" alt="A scene where nothing is what it seems." /></a>
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/roadkill.jpg"><img src="images/gallery/thumbs/roadkill.jpg" alt="Either an anti-hunting poster or a pro-hunting one, depending on how you look at it." /></a>
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/wolfMarine.jpg"><img src="images/gallery/thumbs/wolfMarine.jpg" alt="A portrait of a wolf marine." /></a>
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/alice.jpg"><img src="images/gallery/thumbs/alice.jpg" alt="The scene from Alice in Wonderland where she meets the caterpillar." /></a>
+<a class="galpop-multiple" data-galpop-group="multiple" href="images/gallery/large/reflection.jpg"><img src="images/gallery/thumbs/reflection.jpg" alt="A magical poster with a reflection." /></a>
+</div><!-- end multiple galpop wrapper -->
+
+<h2 id="info-head">Image Info</h2>
+<p>Galpop has a box on the lower left corner for captions. If the anchor contains a "title" attribute, that will be added to the box. If the anchor contains a "data-galpop-link" attribute, it will add an anchor to the box. Adding a "data-galpop-link-title" attribute will change the text of the anchor, and adding a "data-galpop-link-target" attribute will change the target of the anchor.</p>
+<div class="gallery-wrapper">
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/apocalypse" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="An apocalyptic Earth." href="images/gallery/large/apocalypse.jpg"><img src="images/gallery/thumbs/apocalypse.jpg" alt="An apocalyptic Earth." /></a>
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/vintage" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="An old, vintage poster." href="images/gallery/large/vintage.jpg"><img src="images/gallery/thumbs/vintage.jpg" alt="An old, vintage poster." /></a>
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/magicLake" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="A scene of a magical forest." href="images/gallery/large/magicLake.jpg"><img src="images/gallery/thumbs/magicLake.jpg" alt="A scene of a magical forest." /></a>
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/underwater" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="An underwater scene with lots of tension." href="images/gallery/large/underwater.jpg"><img src="images/gallery/thumbs/underwater.jpg" alt="An underwater scene with lots of tension." /></a>
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/goodBoy" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="A dog and his pet." href="images/gallery/large/goodBoy.jpg"><img src="images/gallery/thumbs/goodBoy.jpg" alt="A dog and his pet." /></a>
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/darkroad" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="A scene where nothing is what it seems." href="images/gallery/large/darkroad.jpg"><img src="images/gallery/thumbs/darkroad.jpg" alt="A scene where nothing is what it seems." /></a>
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/roadkill" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="Either an anti-hunting poster or a pro-hunting one, depending on how you look at it." href="images/gallery/large/roadkill.jpg"><img src="images/gallery/thumbs/roadkill.jpg" alt="Either an anti-hunting poster or a pro-hunting one, depending on how you look at it." /></a>
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/wolfMarine" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="A portrait of a wolf marine." href="images/gallery/large/wolfMarine.jpg"><img src="images/gallery/thumbs/wolfMarine.jpg" alt="A portrait of a wolf marine." /></a>
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/alice" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="The scene from Alice in Wonderland where she meets the caterpillar." href="images/gallery/large/alice.jpg"><img src="images/gallery/thumbs/alice.jpg" alt="The scene from Alice in Wonderland where she meets the caterpillar." /></a>
+<a class="galpop-info" data-galpop-group="info" data-galpop-link="http://www.magicmediamuse.com/graphic/reflection" data-galpop-link-title="Click Here For More Info" data-galpop-link-target="_blank" title="A magical poster with a reflection." href="images/gallery/large/reflection.jpg"><img src="images/gallery/thumbs/reflection.jpg" alt="A magical poster with a reflection." /></a>
+</div><!-- end info galpop wrapper -->
+
+
+<h2 id="callback-head">Callbacks</h2>
+<p>You can add a callback function to fire after every completion of an image. You can grab the index and count from the "#galpop-wrapper" element.</p>
+<div class="gallery-wrapper">
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/apocalypse.jpg"><img src="images/gallery/thumbs/apocalypse.jpg" alt="An apocalyptic Earth." /></a>
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/vintage.jpg"><img src="images/gallery/thumbs/vintage.jpg" alt="An old, vintage poster." /></a>
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/magicLake.jpg"><img src="images/gallery/thumbs/magicLake.jpg" alt="A scene of a magical forest." /></a>
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/underwater.jpg"><img src="images/gallery/thumbs/underwater.jpg" alt="An underwater scene with lots of tension." /></a>
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/goodBoy.jpg"><img src="images/gallery/thumbs/goodBoy.jpg" alt="A dog and his pet." /></a>
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/darkroad.jpg"><img src="images/gallery/thumbs/darkroad.jpg" alt="A scene where nothing is what it seems." /></a>
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/roadkill.jpg"><img src="images/gallery/thumbs/roadkill.jpg" alt="Either an anti-hunting poster or a pro-hunting one, depending on how you look at it." /></a>
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/wolfMarine.jpg"><img src="images/gallery/thumbs/wolfMarine.jpg" alt="A portrait of a wolf marine." /></a>
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/alice.jpg"><img src="images/gallery/thumbs/alice.jpg" alt="The scene from Alice in Wonderland where she meets the caterpillar." /></a>
+<a class="galpop-callback" data-galpop-group="callback" href="images/gallery/large/reflection.jpg"><img src="images/gallery/thumbs/reflection.jpg" alt="A magical poster with a reflection." /></a>
+</div><!-- end callback galpop wrapper -->
+
+
+<div class="clear"></div>
+</div><!-- End Content -->
+
+<div class="clear"></div>
+</div><!-- End Container -->
+
+<footer>
+<p>Copyright &copy; 2013 <a href="http://www.magicmediamuse.com/" target="_blank">Richard Hung</a>. All Rights Reserved.</p>
+</footer>
+
+</div><!-- End Wrapper -->
+
+<script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+<script type="text/javascript" src="js/jquery.galpop.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	
+	$('.galpop-single').galpop();
+	
+	$('.galpop-multiple').galpop();
+	
+	$('.galpop-info').galpop();
+	
+	
+	var callback = function() {
+		var wrapper = $('#galpop-wrapper');
+		var info    = $('#galpop-info');
+		var count   = wrapper.data('count');
+		var index   = wrapper.data('index');
+		var current = index + 1;
+		var string  = 'Image '+ current +' of '+ count;
+		
+		info.append('<p>'+ string +'</p>').fadeIn();
+		
+	};
+	$('.galpop-callback').galpop({
+		callback: callback
+	});
+	
+});
+
+</script>
+</body>
+</html>
+
