@@ -7,9 +7,9 @@
  * http://www.magicmediamuse.com/
  *
  * Version
- * 1.0.0
+ * 1.0.1
  * 
- * Copyright (c) 2013 Richard Hung.
+ * Copyright (c) 2014 Richard Hung.
  * 
  * License
  * Galpop Image Gallery Popup by Richard Hung is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License.
@@ -82,7 +82,7 @@
 			}
 			
 			if (lockScroll) {
-				$('html, body').addClass('lock-scroll');
+				$('html').addClass('lock-scroll');
 			}
 
 			wrapper.fadeIn(500,'swing');
@@ -112,7 +112,7 @@
 				// remove bound functions
 				$(document).unbind('keydown',keybind);
 				$(window).unbind('resize',rsz);
-				$('html, body').removeClass('lock-scroll');
+				$('html').removeClass('lock-scroll');
 			});
 			
 		}, // end close box
@@ -167,16 +167,15 @@
 				imageHeight = imageHeight * ratio;
 			}
 			
-			container.animate({
+			container.css({
 				height:     imageHeight,
-				width:      imageWidth,
-				marginTop:  - (imageHeight + extraHeight) / 2,
-				marginLeft: - (imageWidth + extraWidth) / 2
-			},500,'swing',function() {
+				width:      imageWidth
+			});
+			setTimeout(function() {
 				content.append(image).find('img').height(imageHeight).width(imageWidth).fadeIn(500,'swing',function() {
 					wrapper.galpop('complete');
 				});
-			});
+			},500);
 			
 		}, // end display
 		complete : function() {
@@ -320,6 +319,8 @@
 		}		
 		
 	}; // End plugin
+	
+	var wrapper, container, content, info, prev, next, close;
 	
 	$(document).ready(function() {
 		wrapper   = $('<div id="galpop-wrapper" />').prependTo('body');
