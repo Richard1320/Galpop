@@ -307,8 +307,6 @@
 	
 	$.fn.galpop = function(method) {
 		
-		// Create outer variables
-		var wrapper, container, content, info, image, prev, next, keybind, rsz;
 		
 		if ( methods[method] ) {
 			return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
@@ -320,7 +318,8 @@
 		
 	}; // End plugin
 	
-	var wrapper, container, content, info, prev, next, close;
+	// Create outer variables
+	var wrapper, container, content, info, prev, next, close, keybind, rsz;
 	
 	$(document).ready(function() {
 		wrapper   = $('<div id="galpop-wrapper" />').prependTo('body');
