@@ -7,6 +7,22 @@ Author: Richard Hung
 
 More documentation and examples: http://galpop.magicmediamuse.com
 
+## Install
+
+Install it using [Bower](http://bower.io):
+
+```sh
+$ bower install galpop
+```
+
+Install it using [npm](https://www.npmjs.org/):
+
+```sh
+$ npm install galpop
+```
+
+Or [download as ZIP](https://github.com/Richard1320/Galpop/archive/master.zip).
+
 Key Features
 --------------------
 
