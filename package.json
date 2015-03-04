@@ -9,7 +9,7 @@
 	"photos",
 	"jquery-plugin"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
     "jquery": ">=1.4"
   },
@@ -24,7 +24,7 @@
 		"url": "http://creativecommons.org/licenses/by-nc/3.0/deed.en_US"
 	}
   ],
-  "main": "js/jquery.bbslider.js",
+  "main": "js/jquery.galpop.js",
   "files": [
 	"css/jquery.galpop.css",
 	"images/ajax-loader.gif",

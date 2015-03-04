@@ -23,7 +23,7 @@
 	"photos",
 	"jquery-plugin"
   ],
-  "version": "1.0.1",
+  "version": "1.0.2",
   "dependencies": {
     "jquery": ">=1.4"
   },
