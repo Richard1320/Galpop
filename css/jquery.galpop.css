@@ -11,9 +11,25 @@
 	padding:10px;
 	background-color:rgb(255, 255, 255);
 	background-color:rgba(255, 255, 255, .8);
+}
+#galpop-ajax {
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	opacity:1;
+	-o-transition: opacity 0.5s;
+	-ms-transition: opacity 0.5s;
+	-moz-transition: opacity 0.5s;
+	-webkit-transition: opacity 0.5s;
+	transition:opacity 0.5s;
 	background-image:url("../images/ajax-loader.gif");
 	background-repeat:no-repeat;
 	background-position:center;
+}
+#galpop-wrapper.complete #galpop-ajax {
+	opacity:0;
 }
 #galpop-info {
     background-color: rgb(0, 0, 0);
@@ -61,30 +77,12 @@
 	-moz-transform: translate(-50%,-50%);
 	-o-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
-	-o-transition: all 0.5s;
-	-ms-transition: all 0.5s;
-	-moz-transition: all 0.5s;
-	-webkit-transition: all 0.5s;
-	transition:all 0.5s;
+	-o-transition: width 0.5s, height 0.5s;
+	-ms-transition: width 0.5s, height 0.5s;
+	-moz-transition: width 0.5s, height 0.5s;
+	-webkit-transition: width 0.5s, height 0.5s;
+	transition:width 0.5s, height 0.5s;
 	overflow: visible !important;
-}
-#galpop-content {
-	position:relative;
-}
-#galpop-content img {
-	vertical-align:top;
-	display:none;
-}
-#galpop-info {
-	position:absolute;
-	display:none;
-	z-index:15;
-}
-#galpop-info p {
-	margin:0;
-}
-#galpop-info a {
-	color:#fff;
 }
 #galpop-prev,
 #galpop-next {
@@ -110,6 +108,24 @@
 #galpop-next:hover {
 	background-image:url("../images/btn-next.png");
 	background-position:right center;
+}
+#galpop-content {
+	position:relative;
+}
+#galpop-content img {
+	vertical-align:top;
+	display:none;
+}
+#galpop-info {
+	position:absolute;
+	display:none;
+	z-index:15;
+}
+#galpop-info p {
+	margin:0;
+}
+#galpop-info a {
+	color:#fff;
 }
 #galpop-close {
 	position:absolute;

@@ -7,7 +7,7 @@
  * http://www.magicmediamuse.com/
  *
  * Version
- * 1.0.2
+ * 1.0.3
  * 
  * Copyright (c) 2014 Richard Hung.
  * 
@@ -18,6 +18,7 @@
 
 
 (function($) {
+	'use strict';
 	
 	
 	var methods = {
@@ -37,7 +38,7 @@
 			}; // End options
 			
 			// Override default options
-			var settings = $.extend({}, defaultSettings, settings);
+			settings = $.extend({}, defaultSettings, settings);
 			
 			return this.click(function(e) {
 				
@@ -102,7 +103,7 @@
 		}, // end open box
 		closeBox : function() {
 			
-			wrapper.fadeOut(500,'swing',function() {
+			wrapper.removeClass('complete').fadeOut(500,'swing',function() {
 				content.find('img').remove();
 				info.hide().contents().remove();
 				$(this).data('status',false);
@@ -142,8 +143,8 @@
 			var screenHeight = $(window).height();
 			var screenWidth  = $(window).width();
 			var ratio        = 0;
-			var extraWidth   = container.outerWidth() - container.width();
-			var extraHeight  = container.outerHeight() - container.height();
+			// var extraWidth   = container.outerWidth() - container.width();
+			// var extraHeight  = container.outerHeight() - container.height();
 
 			// set max width and height
 			if (!maxWidth || maxWidth > screenWidth * maxScreen / 100) {
@@ -171,7 +172,10 @@
 				height:     imageHeight,
 				width:      imageWidth
 			});
+			
+			// wait for container to finish animations before displaying image
 			setTimeout(function() {
+				wrapper.addClass('complete');
 				content.append(image).find('img').height(imageHeight).width(imageWidth).fadeIn(500,'swing',function() {
 					wrapper.galpop('complete');
 				});
@@ -182,14 +186,13 @@
 			var controls = wrapper.data('controls');
 			var callback = wrapper.data('callback');
 			var index    = wrapper.data('index');
-			var index    = wrapper.data('index');
 			var count    = wrapper.data('count');
 			var loop     = wrapper.data('loop');
 			
 			wrapper.galpop('infoParse');
 			
 			// check if on first item and hide prev
-			if (!controls || (index == 0 && !loop) || count <= 1) {
+			if (!controls || (index === 0 && !loop) || count <= 1) {
 				prev.hide();
 			} else {
 				prev.show();
@@ -210,6 +213,7 @@
 		moveItem : function(index) {
 			var group = wrapper.data('group');
 			
+			wrapper.removeClass('complete');
 			info.fadeOut(500,'swing',function() {
 				$(this).contents().remove();
 			});
@@ -224,7 +228,7 @@
 		next : function() {
 			var index = wrapper.data('index');
 			var loop  = wrapper.data('loop');
-			var group = wrapper.data('group');
+			// var group = wrapper.data('group');
 			var count = wrapper.data('count');
 			// alert(count + 5);
 			// alert(index + 1 +' '+ count);
@@ -245,7 +249,7 @@
 		prev : function() { 
 			var index = wrapper.data('index');
 			var loop  = wrapper.data('loop');
-			var group = wrapper.data('group');
+			// var group = wrapper.data('group');
 			var count = wrapper.data('count');
 			
 			// check if first item
@@ -272,17 +276,17 @@
 			info.html('');
 			
 			// new title
-			if (title != '') {
+			if (title !== '') {
 				$('<p>'+ title +'</p>').appendTo(info);
 			}
 			
 			// new link
-			if (url != '') {
-				if (urlTitle == '') {
+			if (url !== '') {
+				if (urlTitle === '') {
 					urlTitle = url;
 				}
 				
-				if (urlTarget != '') {
+				if (urlTarget !== '') {
 					urlTarget = 'target="'+ urlTarget +'"';
 				}
 
@@ -290,7 +294,7 @@
 			}
 			
 			// show info box
-			if (title != '' || url != '') {
+			if (title !== '' || url !== '') {
 				info.fadeIn(500,'swing');
 			}
 		}, // end info parse
@@ -319,15 +323,16 @@
 	}; // End plugin
 	
 	// Create outer variables
-	var wrapper, container, content, info, prev, next, close, keybind, rsz;
+	var wrapper, container, ajax, content, info, prev, next, close, keybind, rsz, image;
 	
 	$(document).ready(function() {
 		wrapper   = $('<div id="galpop-wrapper" />').prependTo('body');
 		container = $('<div id="galpop-container" />').appendTo(wrapper);
+		prev      = $('<a href="#" id="galpop-prev" />').appendTo(container);
+		next      = $('<a href="#" id="galpop-next" />').appendTo(container);
+		ajax      = $('<div id="galpop-ajax" />').appendTo(container);
 		content   = $('<div id="galpop-content" />').appendTo(container);
 		info      = $('<div id="galpop-info" />').appendTo(content);
-		prev      = $('<a href="#" id="galpop-prev" />').appendTo(content);
-		next      = $('<a href="#" id="galpop-next" />').appendTo(content);
 		close     = $('<a href="#" id="galpop-close" />').appendTo(content);
 		
 		wrapper.click(function(e) {
