@@ -1,4 +1,4 @@
-/**
+/*!
  * Galpop Image Gallery Popup
  * http://galpop.magicmediamuse.com/
  *
@@ -7,7 +7,7 @@
  * http://www.magicmediamuse.com/
  *
  * Version
- * 1.0.3
+ * 1.0.4
  * 
  * Copyright (c) 2014 Richard Hung.
  * 
@@ -75,7 +75,7 @@
 			// alert(group.text());
 			
 			if (arrowKeys) {
-				$(document).bind('keydown',keybind);
+				$(document).on('keydown',keybind);
 			}
 			
 			if (updateRsz) {
@@ -111,8 +111,8 @@
 				next.hide();
 				
 				// remove bound functions
-				$(document).unbind('keydown',keybind);
-				$(window).unbind('resize',rsz);
+				$(document).off('keydown',keybind);
+				$(window).off('resize',rsz);
 				$('html').removeClass('lock-scroll');
 			});
 			
@@ -304,7 +304,7 @@
 			return this;
 		}, // end update
 		destroy : function() {
-			return this.unbind('click');
+			return this.off('click');
 		} // End destroy
 	}; // End method
     
@@ -360,18 +360,24 @@
 		});
 		keybind = function(e){
 			var k = e.which;
+			var s = false;
 			switch (k) {
 				case 27: // esc
 					wrapper.galpop('closeBox');
+					s = true;
 					break;
 				case 37: // left arrow
 					wrapper.galpop('prev');
+					s = true;
 					break;
 				case 39: // right arrow
 					wrapper.galpop('next');
+					s = true;
 					break;
 			}
-			e.preventDefault();
+			if (s) {
+				e.preventDefault();
+			}
 		}; // end keybind
 		rsz = function() {
 			wrapper.galpop('update');

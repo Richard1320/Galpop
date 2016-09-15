@@ -9,9 +9,9 @@
 	"photos",
 	"jquery-plugin"
   ],
-  "version": "1.0.3",
+  "version": "1.0.4",
   "dependencies": {
-    "jquery": ">=1.4"
+    "jquery": ">=1.7"
   },
   "author": {
     "name": "Richard Hung",
