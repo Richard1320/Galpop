@@ -7,7 +7,7 @@
  * http://www.magicmediamuse.com/
  *
  * Version
- * 1.0.5
+ * 1.0.6
  *
  * Copyright (c) 2014 Richard Hung.
  *
@@ -33,7 +33,7 @@
 		maxScreen:  90,                  // Percentage of screen size (overrides maxWidth and maxHeight)
 		updateRsz:  true,                // Update on window resize
 		callback:   null,                // Callback function after every panel load
-		lockScroll: true                 // Prevent scrolling when pop-up is open
+		lockScroll: true,                // Prevent scrolling when pop-up is open
 	}; // End options
 
 
@@ -50,7 +50,7 @@
 			}); // End click
 
 		}, // End init
-		openBox : function(settings,url) {
+		openBox : function(settings,target,index) {
 			// Override default options
 			settings = $.extend({}, defaultSettings, settings);
 
@@ -64,13 +64,22 @@
 				callback:    settings.callback,
 			}); // end data
 
+			var url   = target;
+			var rel   = '';
+			var group = this;
 
-			var rel        = '';
-			var group      = this;
-			var index      = 0;
+			if (!index) {
+				index = 0;
+			}
 
-			// If no url, use normal link
-			if (!url) {
+			// Group items if is an array
+			if( Object.prototype.toString.call( target ) === '[object Array]' ) {
+				group = target;
+				url   = group[index];
+			}
+
+			// If no target, use normal link
+			if (!target) {
 				url   = this.attr('href');
 				rel   = this.data('galpop-group');
 				group = $('[data-galpop-group="'+ rel +'"]');
@@ -87,8 +96,6 @@
 				if (settings.lockScroll) {
 					$('html').addClass('lock-scroll');
 				}
-
-
 			}
 
 			wrapper.data({
@@ -215,6 +222,7 @@
 			}
 		}, // end display
 		moveItem : function(index) {
+			console.log('moveitem '+index);
 			var group = wrapper.data('group');
 			var next  = false;
 			var url   = '';
@@ -224,10 +232,25 @@
 				$(this).contents().remove();
 			});
 			content.find('img').fadeOut(500, 'swing', function() {
+				// Remove current image
 				$(this).remove();
-				next = group.eq(index);
-				url  = next.attr('href');
-				next.galpop('preload',url);
+
+				if (Object.prototype.toString.call( group ) === '[object Array]') {
+					url = group[index];
+				} else {
+					// Get the next item to show
+					next = group.eq(index);
+
+					if (next.attr('href')) {
+						url = next.attr('href');
+					} else if (next.attr('src')) {
+						url = next.attr('href');
+					}
+				}
+
+
+				$.fn.galpop('preload',url);
+
 				wrapper.data('index',index);
 			});
 
@@ -272,39 +295,43 @@
 			return this;
 		}, // End prev
 		infoParse : function() {
-			var index     = wrapper.data('index');
-			var group     = wrapper.data('group');
-			var anchor    = group.eq(index);
-			var title     = $.trim(anchor.attr('title'));
-			var url       = $.trim(anchor.data('galpop-link'));
-			var urlTitle  = $.trim(anchor.data('galpop-link-title'));
-			var urlTarget = $.trim(anchor.data('galpop-link-target'));
+			var group = wrapper.data('group');
 
-			// clear info box
-			info.html('');
+			if (group instanceof jQuery) {
+				var index     = wrapper.data('index');
+				var anchor    = group.eq(index);
+				var title     = $.trim(anchor.attr('title'));
+				var url       = $.trim(anchor.data('galpop-link'));
+				var urlTitle  = $.trim(anchor.data('galpop-link-title'));
+				var urlTarget = $.trim(anchor.data('galpop-link-target'));
 
-			// new title
-			if (title !== '') {
-				$('<p>'+ title +'</p>').appendTo(info);
-			}
+				// clear info box
+				info.html('');
 
-			// new link
-			if (url !== '') {
-				if (urlTitle === '') {
-					urlTitle = url;
+				// new title
+				if (title) {
+					$('<p>'+ title +'</p>').appendTo(info);
 				}
 
-				if (urlTarget !== '') {
-					urlTarget = 'target="'+ urlTarget +'"';
+				// new link
+				if (url) {
+					if (!urlTitle) {
+						urlTitle = url;
+					}
+
+					if (urlTarget) {
+						urlTarget = 'target="'+ urlTarget +'"';
+					}
+
+					$('<p><a href="'+ url +'" '+ urlTarget +'>'+ urlTitle +'</a></p>').appendTo(info);
 				}
 
-				$('<p><a href="'+ url +'" '+ urlTarget +'>'+ urlTitle +'</a></p>').appendTo(info);
+				// show info box
+				if (title || url) {
+					info.fadeIn(500,'swing');
+				}
 			}
 
-			// show info box
-			if (title !== '' || url !== '') {
-				info.fadeIn(500,'swing');
-			}
 		}, // end info parse
 		update : function() {
 			var index = wrapper.data('index');
