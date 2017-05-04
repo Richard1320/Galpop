@@ -97,6 +97,25 @@
 	</select>
 </div><!-- end callback galpop wrapper -->
 
+<h2 id="manual-group-head">Manual Open Group</h2>
+<p>You can also manually open the popup as a group. Instead of passing it one url, you can use an array.</p>
+<div class="manual-group-wrapper">
+	<select class="manual-open-group">
+		<option value="">Choose Image</option>
+		<option value="0">An apocalyptic Earth.</option>
+		<option value="1">An old, vintage poster.</option>
+		<option value="2">A scene of a magical forest.</option>
+		<option value="3">An underwater scene with lots of tension.</option>
+		<option value="4">A dog and his pet.</option>
+		<option value="5">A scene where nothing is what it seems.</option>
+		<option value="6">Either an anti-hunting poster or a pro-hunting one, depending on how you look at it.</option>
+		<option value="7">A portrait of a wolf marine.</option>
+		<option value="8">The scene from Alice in Wonderland where she meets the caterpillar.</option>
+		<option value="9">A magical poster with a reflection.</option>
+	</select>
+</div><!-- end manual open group wrapper -->
+
+
 
 <div class="clear"></div>
 </div><!-- End Content -->
@@ -105,7 +124,7 @@
 </div><!-- End Container -->
 
 <footer>
-<p>Copyright &copy; 2013 <a href="http://www.magicmediamuse.com/" target="_blank">Richard Hung</a>. All Rights Reserved.</p>
+<p>Copyright &copy; 2017 <a href="http://www.magicmediamuse.com/" target="_blank">Richard Hung</a>. All Rights Reserved.</p>
 </footer>
 
 </div><!-- End Wrapper -->
@@ -144,6 +163,24 @@ $(document).ready(function() {
 			var settings = {};
 			$.fn.galpop('openBox',settings,image);
 		}
+	});
+
+	$('.manual-open-group').change(function(e) {
+		var v = $(this).val();
+		var images = [
+			'images/gallery/large/apocalypse.jpg',
+			'images/gallery/large/vintage.jpg',
+			'images/gallery/large/magicLake.jpg',
+			'images/gallery/large/underwater.jpg',
+			'images/gallery/large/goodBoy.jpg',
+			'images/gallery/large/darkroad.jpg',
+			'images/gallery/large/roadkill.jpg',
+			'images/gallery/large/wolfMarine.jpg',
+			'images/gallery/large/alice.jpg',
+			'images/gallery/large/reflection.jpg',
+		];
+		var settings = {};
+		$.fn.galpop('openBox',settings,images,v);
 	});
 
 });
