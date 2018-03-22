@@ -1,27 +1,27 @@
 /*!
- * Galpop Image Gallery Popup
- * http://galpop.magicmediamuse.com/
- *
- * Author
- * Richard Hung
- * http://www.magicmediamuse.com/
- *
- * Version
- * 1.0.6
- *
- * Copyright (c) 2014 Richard Hung.
- *
- * License
- * Galpop Image Gallery Popup by Richard Hung is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License.
- * http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
- */
+* Galpop Image Gallery Popup
+* http://galpop.magicmediamuse.com/
+*
+* Author
+* Richard Hung
+* http://www.magicmediamuse.com/
+*
+* Version
+* 1.0.7
+*
+* Copyright (c) 2014 Richard Hung.
+*
+* License
+* Galpop Image Gallery Popup by Richard Hung is licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License.
+* http://creativecommons.org/licenses/by-nc/3.0/deed.en_US
+*/
 
 
 (function($) {
 	'use strict';
 
 	// Create outer variables
-	var wrapper, container, ajax, content, info, prev, next, close, keybind, rsz, image;
+	var wrapper, container, ajax, modal, content, info, prev, next, close, keybind, rsz, image;
 
 	// Set default parameters
 	var defaultSettings = {
@@ -116,8 +116,8 @@
 		closeBox : function() {
 
 			wrapper.removeClass('complete').fadeOut(500,'swing',function() {
-				content.find('img').remove();
-				info.hide().contents().remove();
+				content.empty();
+				info.hide().empty();
 				$(this).data('status',false);
 				prev.hide();
 				next.hide();
@@ -187,7 +187,8 @@
 			// wait for container to finish animations before displaying image
 			setTimeout(function() {
 				wrapper.addClass('complete');
-				content.append(image).find('img').height(imageHeight).width(imageWidth).fadeIn(500,'swing',function() {
+				content.append(image).find('img').height(imageHeight).width(imageWidth);
+				content.fadeIn(500,'swing',function() {
 					wrapper.galpop('complete');
 				});
 			},500);
@@ -222,7 +223,7 @@
 			}
 		}, // end display
 		moveItem : function(index) {
-			console.log('moveitem '+index);
+			// console.log('moveitem '+index);
 			var group = wrapper.data('group');
 			var next  = false;
 			var url   = '';
@@ -343,19 +344,26 @@
 		} // End destroy
 	}; // End method
 
+	// Create the plugin name and defaults once
+	var pluginName = 'galpop';
 
-	$.fn.galpop = function(method) {
-
+	$.fn[pluginName] = function(method) {
 
 		if ( methods[method] ) {
 			return methods[method].apply( this, Array.prototype.slice.call( arguments, 1 ));
 		} else if ( typeof method === 'object' || ! method ) {
 			return methods.init.apply( this, arguments );
 		} else {
-			$.error( 'Method ' +  method + ' does not exist on jQuery.galpop' );
+			$.error( 'Method ' +  method + ' does not exist on jQuery.'+ pluginName );
 		}
 
 	}; // End plugin
+
+	$[pluginName] = {};
+	$[pluginName].extend = function(name, method) {
+		methods[name] = method;
+	};
+
 
 	$(document).ready(function() {
 		wrapper   = $('<div id="galpop-wrapper" />').appendTo('body');
@@ -363,9 +371,10 @@
 		prev      = $('<a href="#" id="galpop-prev" />').appendTo(container);
 		next      = $('<a href="#" id="galpop-next" />').appendTo(container);
 		ajax      = $('<div id="galpop-ajax" />').appendTo(container);
-		content   = $('<div id="galpop-content" />').appendTo(container);
-		info      = $('<div id="galpop-info" />').appendTo(content);
-		close     = $('<a href="#" id="galpop-close" />').appendTo(content);
+		modal     = $('<div id="galpop-modal" />').appendTo(container);
+		content   = $('<div id="galpop-output" />').appendTo(modal);
+		info      = $('<div id="galpop-info" />').appendTo(modal);
+		close     = $('<a href="#" id="galpop-close" />').appendTo(modal);
 
 		wrapper.click(function(e) {
 			$(this).galpop('closeBox');
@@ -395,17 +404,17 @@
 			var s = false;
 			switch (k) {
 				case 27: // esc
-					wrapper.galpop('closeBox');
-					s = true;
-					break;
+				wrapper.galpop('closeBox');
+				s = true;
+				break;
 				case 37: // left arrow
-					wrapper.galpop('prev');
-					s = true;
-					break;
+				wrapper.galpop('prev');
+				s = true;
+				break;
 				case 39: // right arrow
-					wrapper.galpop('next');
-					s = true;
-					break;
+				wrapper.galpop('next');
+				s = true;
+				break;
 			}
 			if (s) {
 				e.preventDefault();
