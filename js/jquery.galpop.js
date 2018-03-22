@@ -21,19 +21,20 @@
 	'use strict';
 
 	// Create outer variables
-	var wrapper, container, ajax, modal, content, info, prev, next, close, keybind, rsz, image;
+	var wrapper, container, ajax, modal, content, info, prev, next, close, keybind, rsz, loadedContent;
 
 	// Set default parameters
 	var defaultSettings = {
-		arrowKeys:  true,                // Left and right arrow keys for controls, Esc to close
-		controls:   true,                // Display next / prev controls
-		loop:       true,                // Loop back to the beginning
-		maxWidth:   null,                // Maximum amount of pixels for width
-		maxHeight:  null,                // Maximum amount of pixels for height
-		maxScreen:  90,                  // Percentage of screen size (overrides maxWidth and maxHeight)
-		updateRsz:  true,                // Update on window resize
-		callback:   null,                // Callback function after every panel load
-		lockScroll: true,                // Prevent scrolling when pop-up is open
+		arrowKeys:   true,                // Left and right arrow keys for controls, Esc to close
+		controls:    true,                // Display next / prev controls
+		loop:        true,                // Loop back to the beginning
+		maxWidth:    null,                // Maximum amount of pixels for width
+		maxHeight:   null,                // Maximum amount of pixels for height
+		maxScreen:   90,                  // Percentage of screen size (overrides maxWidth and maxHeight)
+		updateRsz:   true,                // Update on window resize
+		callback:    null,                // Callback function after every panel load
+		lockScroll:  true,                // Prevent scrolling when pop-up is open
+		contentType: 'image',             // Type of content to load
 	}; // End options
 
 
@@ -62,6 +63,7 @@
 				maxHeight:   settings.maxHeight,
 				maxScreen:   settings.maxScreen,
 				callback:    settings.callback,
+				contentType: settings.contentType,
 			}); // end data
 
 			var url   = target;
@@ -103,7 +105,7 @@
 				group:  group,
 				index:  index,
 				status: true,
-				count:  group.length
+				count:  group.length,
 			});
 
 			wrapper.fadeIn(500,'swing');
@@ -130,8 +132,24 @@
 
 		}, // end close box
 		preload : function(url) {
+			var contentType = wrapper.data('contentType');
+			switch (contentType) {
+				case 'ajax':
+					this.galpop('loadAJAX',url);
+					break;
+				case 'iframe':
+					this.galpop('loadIframe',url);
+					break;
+				case 'image':
+				default:
+					this.galpop('loadImage',url);
+					break;
+			}
 
-			image = new Image();
+			return this;
+		}, // end preload
+		loadImage : function(url) {
+			var image = new Image();
 			image.src = url;
 			image.onload = function() {
 				// alert('good');
@@ -141,13 +159,12 @@
 				// alert(url +' contains a broken image!');
 				console.log(url +' contains a broken image!');
 			}; // end onerror
-
-
-			return this;
-		}, // end preload
-		display : function() {
-			var imageHeight  = image.height;
-			var imageWidth   = image.width;
+			loadedContent = image;
+			return image;
+		}, // Load image
+		resize : function() {
+			var imageHeight  = loadedContent.naturalHeight;
+			var imageWidth   = loadedContent.naturalWidth;
 			var maxWidth     = wrapper.data('maxWidth');
 			var maxHeight    = wrapper.data('maxHeight');
 			var maxScreen    = wrapper.data('maxScreen');
@@ -183,12 +200,13 @@
 				height:     imageHeight,
 				width:      imageWidth
 			});
-
+		}, // End resize
+		display : function() {
+			this.galpop('resize');
 			// wait for container to finish animations before displaying image
 			setTimeout(function() {
 				wrapper.addClass('complete');
-				content.append(image).find('img').height(imageHeight).width(imageWidth);
-				content.fadeIn(500,'swing',function() {
+				content.append(loadedContent).fadeIn(500,'swing',function() {
 					wrapper.galpop('complete');
 				});
 			},500);
@@ -232,9 +250,9 @@
 			info.fadeOut(500,'swing',function() {
 				$(this).contents().remove();
 			});
-			content.find('img').fadeOut(500, 'swing', function() {
+			content.fadeOut(500, 'swing', function() {
 				// Remove current image
-				$(this).remove();
+				$(this).empty();
 
 				if (Object.prototype.toString.call( group ) === '[object Array]') {
 					url = group[index];
@@ -248,7 +266,6 @@
 						url = next.attr('href');
 					}
 				}
-
 
 				$.fn.galpop('preload',url);
 
@@ -372,7 +389,7 @@
 		next      = $('<a href="#" id="galpop-next" />').appendTo(container);
 		ajax      = $('<div id="galpop-ajax" />').appendTo(container);
 		modal     = $('<div id="galpop-modal" />').appendTo(container);
-		content   = $('<div id="galpop-output" />').appendTo(modal);
+		content   = $('<div id="galpop-content" />').appendTo(modal);
 		info      = $('<div id="galpop-info" />').appendTo(modal);
 		close     = $('<a href="#" id="galpop-close" />').appendTo(modal);
 
@@ -400,28 +417,28 @@
 			wrapper.galpop('closeBox');
 		});
 		keybind = function(e){
-			var k = e.which;
-			var s = false;
-			switch (k) {
+			var key  = e.which;
+			var stop = false;
+			switch (key) {
 				case 27: // esc
-				wrapper.galpop('closeBox');
-				s = true;
-				break;
+					wrapper.galpop('closeBox');
+					stop = true;
+					break;
 				case 37: // left arrow
-				wrapper.galpop('prev');
-				s = true;
-				break;
+					wrapper.galpop('prev');
+					stop = true;
+					break;
 				case 39: // right arrow
-				wrapper.galpop('next');
-				s = true;
-				break;
+					wrapper.galpop('next');
+					stop = true;
+					break;
 			}
-			if (s) {
+			if (stop) {
 				e.preventDefault();
 			}
 		}; // end keybind
 		rsz = function() {
-			wrapper.galpop('update');
+			wrapper.galpop('resize');
 		}; // end resize
 
 	}); // end document ready
