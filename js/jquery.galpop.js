@@ -486,3 +486,8 @@
 	}); // end document ready
 
 })(jQuery);
+// (function($) {
+// 	$.galpop.extend('samplemethod', function(prop, value) {
+// 	  alert('extended sample method');
+// 	});
+// })(jQuery);
