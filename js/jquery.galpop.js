@@ -21,20 +21,21 @@
 	'use strict';
 
 	// Create outer variables
-	var wrapper, container, ajax, modal, content, info, prev, next, close, keybind, rsz, loadedContent;
+	var wrapper, container, ajax, modal, content, info, prev, next, close, keybind, rsz, loadedContent = {};
 
 	// Set default parameters
 	var defaultSettings = {
-		arrowKeys:   true,                // Left and right arrow keys for controls, Esc to close
-		controls:    true,                // Display next / prev controls
-		loop:        true,                // Loop back to the beginning
-		maxWidth:    null,                // Maximum amount of pixels for width
-		maxHeight:   null,                // Maximum amount of pixels for height
-		maxScreen:   90,                  // Percentage of screen size (overrides maxWidth and maxHeight)
-		updateRsz:   true,                // Update on window resize
-		callback:    null,                // Callback function after every panel load
-		lockScroll:  true,                // Prevent scrolling when pop-up is open
-		contentType: 'image',             // Type of content to load
+		arrowKeys:     true,                // Left and right arrow keys for controls, Esc to close
+		controls:      true,                // Display next / prev controls
+		loop:          true,                // Loop back to the beginning
+		maxWidth:      null,                // Maximum amount of pixels for width
+		maxHeight:     null,                // Maximum amount of pixels for height
+		maxScreen:     90,                  // Percentage of screen size (overrides maxWidth and maxHeight)
+		updateRsz:     true,                // Update on window resize
+		callback:      null,                // Callback function after every panel load
+		lockScroll:    true,                // Prevent scrolling when pop-up is open
+		contentType:   'image',             // Type of content to load,
+		AJAXContainer: 'body > *',          // HTML element to laod into AJAX
 	}; // End options
 
 
@@ -57,18 +58,19 @@
 
 			// bind variables
 			wrapper.data({
-				controls:    settings.controls,
-				loop:        settings.loop,
-				maxWidth:    settings.maxWidth,
-				maxHeight:   settings.maxHeight,
-				maxScreen:   settings.maxScreen,
-				callback:    settings.callback,
-				contentType: settings.contentType,
+				controls:      settings.controls,
+				loop:          settings.loop,
+				maxWidth:      settings.maxWidth,
+				maxHeight:     settings.maxHeight,
+				maxScreen:     settings.maxScreen,
+				callback:      settings.callback,
+				contentType:   settings.contentType,
 			}); // end data
 
-			var url   = target;
-			var rel   = '';
-			var group = this;
+			var url           = target;
+			var rel           = '';
+			var group         = this;
+			var AJAXContainer = ((this.data('galpop-container')) ? this.data('galpop-container') : settings.AJAXContainer);
 
 			if (!index) {
 				index = 0;
@@ -101,11 +103,12 @@
 			}
 
 			wrapper.data({
-				rel:    rel,
-				group:  group,
-				index:  index,
-				status: true,
-				count:  group.length,
+				rel:           rel,
+				group:         group,
+				index:         index,
+				status:        true,
+				count:         group.length,
+				AJAXContainer: AJAXContainer,
 			});
 
 			wrapper.fadeIn(500,'swing');
@@ -134,7 +137,7 @@
 		preload : function(url) {
 			var contentType = wrapper.data('contentType');
 			switch (contentType) {
-				case 'ajax':
+				case 'AJAX':
 					this.galpop('loadAJAX',url);
 					break;
 				case 'iframe':
@@ -153,18 +156,52 @@
 			image.src = url;
 			image.onload = function() {
 				// alert('good');
-				wrapper.galpop('display');
+				wrapper.galpop('display','loaded-image');
 			}; // end onload
 			image.onerror = function() {
 				// alert(url +' contains a broken image!');
 				console.log(url +' contains a broken image!');
 			}; // end onerror
-			loadedContent = image;
-			return image;
+			loadedContent.object    = image;
+			loadedContent.resizable = true;
+			return this;
+		}, // Load image
+		loadAJAX : function(url) {
+			var AJAXContainer = wrapper.data('AJAXContainer');
+			// console.log(AJAXContainer);
+			$.ajax({
+				url:url,
+				type:'GET',
+				success: function(data){
+					// console.log($(data).find(AJAXContainer).html());
+					loadedContent.object = $(data).find(AJAXContainer).html();
+					wrapper.galpop('display','loaded-ajax');
+				},
+				error: function (jqXHR, exception) {
+					if (jqXHR.status === 0) {
+						console.log('Not connect.\n Verify Network.');
+					} else if (jqXHR.status == 404) {
+						console.log('Requested page not found. [404]');
+					} else if (jqXHR.status == 500) {
+						console.log('Internal Server Error [500].');
+					} else if (exception === 'parsererror') {
+						console.log('Requested JSON parse failed.');
+					} else if (exception === 'timeout') {
+						console.log('Time out error.');
+					} else if (exception === 'abort') {
+						console.log('Ajax request aborted.');
+					} else {
+						console.log('Uncaught Error.\n' + jqXHR.responseText);
+					}
+				},
+			});
+			loadedContent.resizable = false;
+			return this;
 		}, // Load image
 		resize : function() {
-			var imageHeight  = loadedContent.naturalHeight;
-			var imageWidth   = loadedContent.naturalWidth;
+			var resizable    = loadedContent.resizable;
+			var imageHeight  = loadedContent.object.naturalHeight;
+			var imageWidth   = loadedContent.object.naturalWidth;
 			var maxWidth     = wrapper.data('maxWidth');
 			var maxHeight    = wrapper.data('maxHeight');
 			var maxScreen    = wrapper.data('maxScreen');
@@ -182,31 +219,36 @@
 				maxHeight = screenHeight * maxScreen / 100;
 			}
 
-			// Check if the current width is larger than the max
-			if (imageWidth > maxWidth) {
-				ratio       = maxWidth / imageWidth;
-				imageHeight = imageHeight * ratio;
-				imageWidth  = imageWidth * ratio;
-			}
+			// Only resize locked aspect ratio content (images)
+			if (resizable) {
+				// Check if the current width is larger than the max
+				if (imageWidth > maxWidth) {
+					ratio       = maxWidth / imageWidth;
+					imageHeight = imageHeight * ratio;
+					imageWidth  = imageWidth * ratio;
+				}
 
-			// Check if current height is larger than max
-			if (imageHeight > maxHeight) {
-				ratio       = maxHeight / imageHeight;
-				imageWidth  = imageWidth * ratio;
-				imageHeight = imageHeight * ratio;
+				// Check if current height is larger than max
+				if (imageHeight > maxHeight) {
+					ratio       = maxHeight / imageHeight;
+					imageWidth  = imageWidth * ratio;
+					imageHeight = imageHeight * ratio;
+				}
 			}
 
 			container.css({
 				height:     imageHeight,
 				width:      imageWidth
 			});
+
+			return this;
 		}, // End resize
 		display : function() {
 			this.galpop('resize');
 			// wait for container to finish animations before displaying image
 			setTimeout(function() {
 				wrapper.addClass('complete');
-				content.append(loadedContent).fadeIn(500,'swing',function() {
+				content.append(loadedContent.object).fadeIn(500,'swing',function() {
 					wrapper.galpop('complete');
 				});
 			},500);
