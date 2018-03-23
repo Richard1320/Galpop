@@ -14,13 +14,18 @@
 }
 #galpop-wrapper.loaded-ajax #galpop-container,
 #galpop-wrapper.loaded-iframe #galpop-container {
-  width:80vw;
-  height:auto;
+  width:70vw;
+  height:70vh;
+  padding:0;
+  border-radius:0;
 }
-#galpop-wrapper.loaded-iframe #galpop-container iframe {
+#galpop-wrapper.loaded-iframe iframe {
   width:100%;
-  height:80vh;
+  height:70vh;
   border:0;
+}
+#galpop-wrapper.loaded-ajax #galpop-content {
+  padding:10px 20px;
 }
 #galpop-ajax {
   position:absolute;
