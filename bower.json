@@ -3,13 +3,14 @@
   "description": "Galpop is an image gallery pop-up. It can be controlled with the left and right arrow keys and automatically resizes with your browser.",
   "main": [
     "js/jquery.galpop.js",
-	"css/jquery.galpop.css"
+	  "css/jquery.galpop.css"
   ],
   "ignore": [
 	"images/gallery",
-	"js/jquery-2.1.1.min.js",
+	"js/jquery-3.2.1.min.js",
 	"js/jquery.galpop.min.js",
 	"demo.html",
+	"ajax-content.html",
 	"galpop.jquery.json",
 	"package.json",
 	"README.md"
@@ -22,7 +23,6 @@
 	"photos",
 	"jquery-plugin"
   ],
-  "version": "1.0.6",
   "dependencies": {
     "jquery": ">=1.4"
   },
