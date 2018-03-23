@@ -157,6 +157,8 @@
 		loadImage : function(url) {
 			var image = new Image();
 			image.src = url;
+			loadedContent.object    = image;
+			loadedContent.resizable = true;
 			image.onload = function() {
 				// alert('good');
 				wrapper.galpop('display');
@@ -165,13 +167,21 @@
 				// alert(url +' contains a broken image!');
 				console.log(url +' contains a broken image!');
 			}; // end onerror
-			loadedContent.object    = image;
-			loadedContent.resizable = true;
+			return this;
+		}, // Load image
+		loadIframe : function(url) {
+			var iframe = $('<iframe src="'+ url +'" />');
+			loadedContent.object    = iframe;
+			loadedContent.resizable = false;
+
+			// iframe.on('load',function() {
+				wrapper.galpop('display');
+			// });
 			return this;
 		}, // Load image
 		loadAJAX : function(url) {
 			var AJAXContainer = wrapper.data('AJAXContainer');
-			// console.log(AJAXContainer);
+			loadedContent.resizable = false;
 			$.ajax({
 				url:url,
 				type:'GET',
@@ -203,7 +213,6 @@
 					}
 				},
 			});
-			loadedContent.resizable = false;
 			return this;
 		}, // Load image
 		resize : function() {
