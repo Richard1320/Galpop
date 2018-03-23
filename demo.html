@@ -115,16 +115,20 @@
 	</select>
 </div><!-- end manual open group wrapper -->
 
+<h2 id="load-iframe-head">Load iframe</h2>
+<p>In addition to images, you can also load an iframe into the popup.</p>
+<p><a href="ajax-content.html" class="click-open-iframe">Click here to open iframe</a></p>
 
+<h2 id="load-iframe-head">Load AJAX</h2>
+<p>If you don't want to load the entire window into an iframe, you can pick specific elements to load.</p>
+<p><a href="ajax-content.html" data-galpop-container=".text-content" class="click-open-ajax">Click here to open ajax</a></p>
 
-<div class="clear"></div>
 </div><!-- End Content -->
 
-<div class="clear"></div>
 </div><!-- End Container -->
 
 <footer>
-<p>Copyright &copy; 2017 <a href="http://www.magicmediamuse.com/" target="_blank">Richard Hung</a>. All Rights Reserved.</p>
+<p>Copyright &copy; 2018 <a href="http://www.magicmediamuse.com/" target="_blank">Richard Hung</a>. All Rights Reserved.</p>
 </footer>
 
 </div><!-- End Wrapper -->
@@ -183,6 +187,13 @@ $(document).ready(function() {
 		$.fn.galpop('openBox',settings,images,v);
 	});
 
+	$('.click-open-iframe').galpop({
+		contentType: 'iframe',
+	});
+
+	$('.click-open-ajax').galpop({
+		contentType: 'AJAX',
+	});
 });
 
 </script>
