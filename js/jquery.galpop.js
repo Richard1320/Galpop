@@ -120,12 +120,14 @@
 		}, // end open box
 		closeBox : function() {
 
-			wrapper.removeClass('complete loaded-ajax loaded-image loaded-iframe').fadeOut(500,'swing',function() {
+			wrapper.removeClass('complete').fadeOut(500,'swing',function() {
 				content.empty();
 				info.hide().empty();
 				$(this).data('status',false);
 				prev.hide();
 				next.hide();
+				container.removeAttr('style');
+				wrapper.removeClass('loaded-ajax loaded-image loaded-iframe');
 
 				// remove bound functions
 				$(document).off('keydown',keybind);
@@ -174,9 +176,8 @@
 			loadedContent.object    = iframe;
 			loadedContent.resizable = false;
 
-			// iframe.on('load',function() {
-				wrapper.galpop('display');
-			// });
+			wrapper.galpop('display');
+
 			return this;
 		}, // Load image
 		loadAJAX : function(url) {
@@ -185,11 +186,11 @@
 			$.ajax({
 				url:url,
 				type:'GET',
+				dataType:'html',
 				success: function(data){
-					var loadedWrapper = $(data).find(AJAXContainer);
+					var loadedWrapper = $(data).filter(AJAXContainer);
 					if (loadedWrapper.length) {
-						// console.log($(data).find(AJAXContainer).html());
-						loadedContent.object = $(data).find(AJAXContainer).html();
+						loadedContent.object = loadedWrapper.html();
 						wrapper.galpop('display');
 					} else {
 						console.log('Element '+ AJAXContainer +' not found in DOM.');
