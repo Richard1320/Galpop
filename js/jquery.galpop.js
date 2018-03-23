@@ -120,7 +120,7 @@
 		}, // end open box
 		closeBox : function() {
 
-			wrapper.removeClass('complete').fadeOut(500,'swing',function() {
+			wrapper.removeClass('complete loaded-ajax loaded-image loaded-iframe').fadeOut(500,'swing',function() {
 				content.empty();
 				info.hide().empty();
 				$(this).data('status',false);
@@ -138,13 +138,16 @@
 			var contentType = wrapper.data('contentType');
 			switch (contentType) {
 				case 'AJAX':
+					wrapper.addClass('loaded-ajax');
 					this.galpop('loadAJAX',url);
 					break;
 				case 'iframe':
+					wrapper.addClass('loaded-iframe');
 					this.galpop('loadIframe',url);
 					break;
 				case 'image':
 				default:
+					wrapper.addClass('loaded-image');
 					this.galpop('loadImage',url);
 					break;
 			}
@@ -156,7 +159,7 @@
 			image.src = url;
 			image.onload = function() {
 				// alert('good');
-				wrapper.galpop('display','loaded-image');
+				wrapper.galpop('display');
 			}; // end onload
 			image.onerror = function() {
 				// alert(url +' contains a broken image!');
@@ -173,9 +176,14 @@
 				url:url,
 				type:'GET',
 				success: function(data){
-					// console.log($(data).find(AJAXContainer).html());
-					loadedContent.object = $(data).find(AJAXContainer).html();
-					wrapper.galpop('display','loaded-ajax');
+					var loadedWrapper = $(data).find(AJAXContainer);
+					if (loadedWrapper.length) {
+						// console.log($(data).find(AJAXContainer).html());
+						loadedContent.object = $(data).find(AJAXContainer).html();
+						wrapper.galpop('display');
+					} else {
+						console.log('Element '+ AJAXContainer +' not found in DOM.');
+					}
 				},
 				error: function (jqXHR, exception) {
 					if (jqXHR.status === 0) {
