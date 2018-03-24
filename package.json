@@ -1,6 +1,6 @@
 {
   "name": "galpop",
-  "description": "Galpop is an image gallery pop-up. It can be controlled with the left and right arrow keys and automatically resizes with your browser.",
+  "description": "Galpop is an content pop-up that can display images, HTML and iframes. It can be controlled with the left and right arrow keys and automatically resizes with your browser.",
   "keywords": [
 	"gallery",
 	"pop-up",
@@ -9,7 +9,7 @@
 	"photos",
 	"jquery-plugin"
   ],
-  "version": "1.0.7",
+  "version": "1.0.8",
   "dependencies": {
     "jquery": ">=1.7"
   },

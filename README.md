@@ -1,7 +1,7 @@
 Galpop Image Gallery
 =================
 
-Description: Galpop is an image gallery pop-up. It can be controlled with the left and right arrow keys and automatically resizes with your browser.
+Description: Galpop is an content pop-up that can display images, HTML and iframes. It can be controlled with the left and right arrow keys and automatically resizes with your browser.
 
 Author: Richard Hung
 
@@ -63,4 +63,3 @@ Initiate the plugin after the HTML markup.
 ```
 $('.galpop').galpop();
 ```
-
