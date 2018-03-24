@@ -7,7 +7,7 @@
 * http://www.magicmediamuse.com/
 *
 * Version
-* 1.0.7
+* 1.0.8
 *
 * Copyright (c) 2014 Richard Hung.
 *
@@ -188,9 +188,13 @@
 				type:'GET',
 				dataType:'html',
 				success: function(data){
-					var loadedWrapper = $(data).filter(AJAXContainer);
-					if (loadedWrapper.length) {
-						loadedContent.object = loadedWrapper.html();
+					var jQueryFilter = $(data).filter(AJAXContainer);
+					var jQueryFind   = $(data).find(AJAXContainer);
+					if (jQueryFilter.length) {
+						loadedContent.object = jQueryFilter;
+						wrapper.galpop('display');
+					} else if (jQueryFind.length) {
+						loadedContent.object = jQueryFind;
 						wrapper.galpop('display');
 					} else {
 						console.log('Element '+ AJAXContainer +' not found in DOM.');
