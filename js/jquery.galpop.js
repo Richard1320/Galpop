@@ -7,7 +7,7 @@
 * http://www.magicmediamuse.com/
 *
 * Version
-* 1.0.8
+* 1.0.9
 *
 * Copyright (c) 2014 Richard Hung.
 *
@@ -19,6 +19,9 @@
 
 (function($) {
 	'use strict';
+
+	// Create the plugin name and defaults once
+	var pluginName = 'galpop';
 
 	// Create outer variables
 	var wrapper, container, ajax, modal, content, info, prev, next, close, keybind, rsz, loadedContent = {};
@@ -35,7 +38,7 @@
 		callback:      null,                // Callback function after every panel load
 		lockScroll:    true,                // Prevent scrolling when pop-up is open
 		contentType:   'image',             // Type of content to load,
-		AJAXContainer: 'body > *',          // HTML element to laod into AJAX
+		AJAXContainer: '',                  // HTML element to laod into AJAX
 	}; // End options
 
 
@@ -44,7 +47,7 @@
 
 			return this.click(function(e) {
 
-				$(this).galpop('openBox',settings);
+				$(this)[pluginName]('openBox',settings);
 
 				e.preventDefault();
 
@@ -88,18 +91,18 @@
 				rel   = this.data('galpop-group');
 				group = $('[data-galpop-group="'+ rel +'"]');
 				index = group.index(this);
+			}
 
-				if (settings.arrowKeys) {
-					$(document).on('keydown',keybind);
-				}
+			if (settings.arrowKeys) {
+				$(document).on('keydown',keybind);
+			}
 
-				if (settings.updateRsz) {
-					$(window).resize(rsz);
-				}
+			if (settings.updateRsz) {
+				$(window).resize(rsz);
+			}
 
-				if (settings.lockScroll) {
-					$('html').addClass('lock-scroll');
-				}
+			if (settings.lockScroll) {
+				$('html').addClass('lock-scroll');
 			}
 
 			wrapper.data({
@@ -114,7 +117,7 @@
 			wrapper.fadeIn(500,'swing');
 
 			// load the item
-			this.galpop('preload',url);
+			this[pluginName]('preload',url);
 
 			return this;
 		}, // end open box
@@ -141,16 +144,16 @@
 			switch (contentType) {
 				case 'AJAX':
 					wrapper.addClass('loaded-ajax');
-					this.galpop('loadAJAX',url);
+					this[pluginName]('loadAJAX',url);
 					break;
 				case 'iframe':
 					wrapper.addClass('loaded-iframe');
-					this.galpop('loadIframe',url);
+					this[pluginName]('loadIframe',url);
 					break;
 				case 'image':
 				default:
 					wrapper.addClass('loaded-image');
-					this.galpop('loadImage',url);
+					this[pluginName]('loadImage',url);
 					break;
 			}
 
@@ -163,7 +166,7 @@
 			loadedContent.resizable = true;
 			image.onload = function() {
 				// alert('good');
-				wrapper.galpop('display');
+				wrapper[pluginName]('display');
 			}; // end onload
 			image.onerror = function() {
 				// alert(url +' contains a broken image!');
@@ -176,7 +179,7 @@
 			loadedContent.object    = iframe;
 			loadedContent.resizable = false;
 
-			wrapper.galpop('display');
+			wrapper[pluginName]('display');
 
 			return this;
 		}, // Load image
@@ -192,10 +195,10 @@
 					var jQueryFind   = $(data).find(AJAXContainer);
 					if (jQueryFilter.length) {
 						loadedContent.object = jQueryFilter;
-						wrapper.galpop('display');
+						wrapper[pluginName]('display');
 					} else if (jQueryFind.length) {
 						loadedContent.object = jQueryFind;
-						wrapper.galpop('display');
+						wrapper[pluginName]('display');
 					} else {
 						console.log('Element '+ AJAXContainer +' not found in DOM.');
 					}
@@ -266,12 +269,12 @@
 			return this;
 		}, // End resize
 		display : function() {
-			this.galpop('resize');
+			this[pluginName]('resize');
 			// wait for container to finish animations before displaying image
 			setTimeout(function() {
 				wrapper.addClass('complete');
 				content.append(loadedContent.object).fadeIn(500,'swing',function() {
-					wrapper.galpop('complete');
+					wrapper[pluginName]('complete');
 				});
 			},500);
 
@@ -283,7 +286,7 @@
 			var count    = wrapper.data('count');
 			var loop     = wrapper.data('loop');
 
-			wrapper.galpop('infoParse');
+			wrapper[pluginName]('infoParse');
 
 			// check if on first item and hide prev
 			if (!controls || (index === 0 && !loop) || count <= 1) {
@@ -331,7 +334,7 @@
 					}
 				}
 
-				$.fn.galpop('preload',url);
+				$.fn[pluginName]('preload',url);
 
 				wrapper.data('index',index);
 			});
@@ -350,11 +353,11 @@
 				// alert(index + 1 +' '+ count);
 				// move to next item
 				index++;
-				wrapper.galpop('moveItem',index);
+				wrapper[pluginName]('moveItem',index);
 			} else if (loop) {
 				// move to first item
 				index = 0;
-				wrapper.galpop('moveItem',index);
+				wrapper[pluginName]('moveItem',index);
 			}
 
 			return this;
@@ -368,10 +371,10 @@
 			// check if first item
 			if (index > 0) {
 				index--;
-				wrapper.galpop('moveItem',index);
+				wrapper[pluginName]('moveItem',index);
 			} else if (loop) {
 				index = count - 1;
-				wrapper.galpop('moveItem',index);
+				wrapper[pluginName]('moveItem',index);
 			}
 
 			return this;
@@ -417,16 +420,13 @@
 		}, // end info parse
 		update : function() {
 			var index = wrapper.data('index');
-			wrapper.galpop('moveItem',index);
+			wrapper[pluginName]('moveItem',index);
 			return this;
 		}, // end update
 		destroy : function() {
 			return this.off('click');
 		} // End destroy
 	}; // End method
-
-	// Create the plugin name and defaults once
-	var pluginName = 'galpop';
 
 	$.fn[pluginName] = function(method) {
 
@@ -458,7 +458,7 @@
 		close     = $('<a href="#" id="galpop-close" />').appendTo(modal);
 
 		wrapper.click(function(e) {
-			$(this).galpop('closeBox');
+			$(this)[pluginName]('closeBox');
 
 			e.preventDefault();
 		});
@@ -466,34 +466,34 @@
 			e.stopPropagation();
 		});
 		prev.hide().click(function(e) {
-			wrapper.galpop('prev');
+			wrapper[pluginName]('prev');
 			e.preventDefault();
 		});
 		next.hide().click(function(e) {
-			wrapper.galpop('next');
+			wrapper[pluginName]('next');
 			e.preventDefault();
 		});
 		close.click(function(e) {
-			wrapper.galpop('closeBox');
+			wrapper[pluginName]('closeBox');
 			e.preventDefault();
 		});
 		info.on('click', 'a', function() {
-			wrapper.galpop('closeBox');
+			wrapper[pluginName]('closeBox');
 		});
 		keybind = function(e){
 			var key  = e.which;
 			var stop = false;
 			switch (key) {
 				case 27: // esc
-					wrapper.galpop('closeBox');
+					wrapper[pluginName]('closeBox');
 					stop = true;
 					break;
 				case 37: // left arrow
-					wrapper.galpop('prev');
+					wrapper[pluginName]('prev');
 					stop = true;
 					break;
 				case 39: // right arrow
-					wrapper.galpop('next');
+					wrapper[pluginName]('next');
 					stop = true;
 					break;
 			}
@@ -502,14 +502,14 @@
 			}
 		}; // end keybind
 		rsz = function() {
-			wrapper.galpop('resize');
+			wrapper[pluginName]('resize');
 		}; // end resize
 
 	}); // end document ready
 
 })(jQuery);
 // (function($) {
-// 	$.galpop.extend('samplemethod', function(prop, value) {
+// 	$[pluginName].extend('samplemethod', function(prop, value) {
 // 	  alert('extended sample method');
 // 	});
 // })(jQuery);
