@@ -2,14 +2,14 @@
   "name": "galpop",
   "description": "Galpop is an content pop-up that can display images, HTML and iframes. It can be controlled with the left and right arrow keys and automatically resizes with your browser.",
   "keywords": [
-	"gallery",
-	"pop-up",
-	"graphics",
-	"images",
-	"photos",
-	"jquery-plugin"
+    "gallery",
+    "pop-up",
+    "graphics",
+    "images",
+    "photos",
+    "jquery-plugin"
   ],
-  "version": "1.0.9",
+  "version": "1.1.0",
   "dependencies": {
     "jquery": ">=1.7"
   },
@@ -19,18 +19,18 @@
     "url": "http://www.magicmediamuse.com/"
   },
   "licenses": [
-	{
-		"type": "Creative Commons Attribution-NonCommercial 3.0 Unported License",
-		"url": "http://creativecommons.org/licenses/by-nc/3.0/deed.en_US"
-	}
+    {
+      "type": "Creative Commons Attribution-NonCommercial 3.0 Unported License",
+      "url": "http://creativecommons.org/licenses/by-nc/3.0/deed.en_US"
+    }
   ],
   "main": "js/jquery.galpop.js",
   "files": [
-	"css/jquery.galpop.css",
-	"images/ajax-loader.gif",
-	"images/btn-close.png",
-	"images/btn-next.png",
-	"images/btn-prev.png"
+    "css/jquery.galpop.css",
+    "images/ajax-loader.gif",
+    "images/btn-close.png",
+    "images/btn-next.png",
+    "images/btn-prev.png"
   ],
   "repository": {
     "type": "git",
