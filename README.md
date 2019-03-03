@@ -1,5 +1,4 @@
-Galpop Image Gallery
-=================
+# Galpop Image Gallery
 
 Description: Galpop is an content pop-up that can display images, HTML and iframes. It can be controlled with the left and right arrow keys and automatically resizes with your browser.
 
@@ -9,12 +8,6 @@ More documentation and examples: http://galpop.magicmediamuse.com
 
 ## Install
 
-Install it using [Bower](http://bower.io):
-
-```sh
-$ bower install galpop
-```
-
 Install it using [npm](https://www.npmjs.org/):
 
 ```sh
@@ -23,16 +16,14 @@ $ npm install galpop
 
 Or [download as ZIP](https://github.com/Richard1320/Galpop/archive/master.zip).
 
-Key Features
---------------------
+## Key Features
 
-* Resizes with your browser
-* Can use arrow keys for controls
-* Callbacks after every image is loaded
-* Backgrounds and borders can be easily changed with CSS
+- Resizes with your browser
+- Can use arrow keys for controls
+- Callbacks after every image is loaded
+- Backgrounds and borders can be easily changed with CSS
 
-How to Use
---------------------
+## How to Use
 
 Galpop has a CSS and JS file in addition to the jQuery library.
 
