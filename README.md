@@ -4,7 +4,7 @@ Description: Galpop is an content pop-up that can display images, HTML and ifram
 
 Author: Richard Hung
 
-More documentation and examples: http://galpop.magicmediamuse.com
+More documentation and examples: http://richard1320.github.io/Galpop/
 
 ## Key Features
 
