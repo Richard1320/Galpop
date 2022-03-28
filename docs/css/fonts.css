@@ -1,0 +1,50 @@
+
+/********************* Fonts *********************/
+
+@font-face {
+    font-family: 'candela';
+    src: url('../fonts/CandelaBook-webfont.eot');
+    src: url('../fonts/CandelaBook-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/CandelaBook-webfont.woff') format('woff'),
+         url('../fonts/CandelaBook-webfont.ttf') format('truetype'),
+         url('../fonts/CandelaBook-webfont.svg#candela') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'candela';
+    src: url('../fonts/CandelaItalic-webfont.eot');
+    src: url('../fonts/CandelaItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/CandelaItalic-webfont.woff') format('woff'),
+         url('../fonts/CandelaItalic-webfont.ttf') format('truetype'),
+         url('../fonts/CandelaItalic-webfont.svg#candela') format('svg');
+    font-weight: normal;
+    font-style: italic;
+
+}
+
+@font-face {
+    font-family: 'candela';
+    src: url('../fonts/CandelaBold-webfont.eot');
+    src: url('../fonts/CandelaBold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/CandelaBold-webfont.woff') format('woff'),
+         url('../fonts/CandelaBold-webfont.ttf') format('truetype'),
+         url('../fonts/CandelaBold-webfont.svg#candela') format('svg');
+    font-weight: 700;
+    font-style: normal;
+
+}
+
+@font-face {
+    font-family: 'candela';
+    src: url('../fonts/CandelaBoldItalic-webfont.eot');
+    src: url('../fonts/CandelaBoldItalic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/CandelaBoldItalic-webfont.woff') format('woff'),
+         url('../fonts/CandelaBoldItalic-webfont.ttf') format('truetype'),
+         url('../fonts/CandelaBoldItalic-webfont.svg#candela') format('svg');
+    font-weight: 700;
+    font-style: italic;
+
+}

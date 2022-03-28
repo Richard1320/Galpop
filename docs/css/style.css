@@ -1,0 +1,188 @@
+/* CSS Document */
+
+
+/********************* Global Settings *********************/
+
+html, body {
+	position:relative;
+	background-image:url("../images/bg.png");
+	line-height:1.5;
+	font-family: "candela", Arial, Helvetica, sans-serif;
+}
+div {
+	-webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+	-moz-box-sizing: border-box;    /* Firefox, other Gecko */
+	box-sizing: border-box;         /* Opera/IE 8+ */
+}
+h1, h2, h3, th {
+	font-weight:700;
+}
+h1, h2, h3, p {
+	margin-bottom:10px;
+}
+h1 {
+	font-size:150%;
+}
+h2 {
+	font-size:125%;
+}
+table {
+	width:100%;
+	border-spacing:2px;
+	border-collapse:separate;
+}
+td {
+	vertical-align:top;
+}
+td, th {
+	padding:5px;
+}
+strong, b {
+	font-weight:700;
+}
+em, i {
+	font-style:italic;
+}
+
+/********************* Page Layout *********************/
+
+#wrapper {
+	min-width:320px;
+	margin:0 auto;
+	position:relative;
+}
+header {
+	text-align:center;
+	background-color:#fff;
+	box-shadow: 0 10px 8px -8px #333;
+	padding-top:10px;
+}
+#logo {
+}
+nav {
+	text-align:center;
+	background-color:#fff;
+	box-shadow: 0 6px 6px 0 #333;
+	width:70%;
+	min-width:250px;
+	max-width:810px;
+	margin:0 auto 20px;
+}
+nav ul li {
+	line-height:2;
+	display:inline-block;
+	text-align:center;
+	width:125px;
+}
+nav ul li a {
+	color:#333;
+	font-weight:700;
+	text-decoration:none;
+}
+#container {
+	max-width:960px;
+	margin:0 auto;
+}
+#content {
+	padding:10px;
+}
+footer {
+	font-size:.7em;
+	text-align:center;
+}
+
+/********************* CSS Support *********************/
+
+.left {
+	float:left;
+}
+.right {
+	float:right;
+}
+.normList {
+	margin-bottom:10px;
+	padding-left:30px;
+}
+ul.normList {
+	list-style-type: circle;
+}
+ol.normList {
+	list-style-type: decimal;
+}
+.normList li {
+	margin-bottom:5px;
+}
+.right-text {
+	text-align:right;
+}
+.clear:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+table.border {
+	border: 1px solid #999;
+}
+table.border td,table.border th {
+	border: 1px solid #ccc;
+}
+
+/********************* Page Specific *********************/
+
+/* front page */
+
+.gallery-wrapper {
+	text-align:center;
+}
+.gallery-wrapper img {
+	vertical-align:top;
+	margin:5px;
+}
+
+/* contact page */
+
+.form-item {
+	margin-bottom:10px;
+}
+#contact-form label {
+	display:inline-block;
+	width:75px;
+	text-align:right;
+	margin-right:10px;
+	vertical-align:top;
+}
+#contact-form input[type="submit"] {
+	margin-left:85px;
+}
+#contact-info strong {
+	display:inline-block;
+	width:60px;
+}
+
+
+/********************* Media queries *********************/
+
+@media screen and (max-width: 1279px) {
+}
+
+/* 768 - 1023 Settings */
+
+@media screen and (max-width: 1023px) {
+}
+
+/* 480 - 767 Settings */
+
+@media handheld, screen and (max-width: 767px) {
+
+}
+
+/* 320 - 479 Settings */
+
+@media handheld, screen and (max-width: 479px) {
+	html, body {
+		font-size:.9em;
+	}
+	table {
+		font-size:.8em;
+	}
+}

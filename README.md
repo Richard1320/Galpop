@@ -6,16 +6,6 @@ Author: Richard Hung
 
 More documentation and examples: http://galpop.magicmediamuse.com
 
-## Install
-
-Install it using [npm](https://www.npmjs.org/):
-
-```sh
-$ npm install galpop
-```
-
-Or [download as ZIP](https://github.com/Richard1320/Galpop/archive/master.zip).
-
 ## Key Features
 
 - Resizes with your browser
